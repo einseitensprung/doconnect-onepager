@@ -378,7 +378,13 @@
   .foot-nav{ display:flex; gap:26px; flex-wrap:wrap; }
   .foot-nav a{ text-decoration:none; color:var(--ink-soft); font-size:0.92rem; font-weight:700; }
   .foot-nav a:hover{ color:var(--accent-strong); }
-  .foot-legal{ display:flex; gap:22px; flex-wrap:wrap; font-size:0.88rem; color:var(--ink-faint); }
+  .foot-legal{ display:flex; gap:22px; flex-wrap:wrap; font-size:0.88rem; }
+  .legal-link{
+    font-family:"Atkinson Hyperlegible", sans-serif; font-size:0.88rem; color:var(--ink-faint);
+    background:none; border:none; padding:0; cursor:pointer; text-decoration:underline; text-underline-offset:3px;
+    text-decoration-color:transparent; transition:color .2s ease, text-decoration-color .2s ease;
+  }
+  .legal-link:hover{ color:var(--accent-strong); text-decoration-color:var(--accent-strong); }
   .foot-social{ display:flex; gap:14px; }
   .foot-social span{ width:34px; height:34px; border:1px solid var(--line); border-radius:50%; display:flex; align-items:center; justify-content:center; }
   .foot-social svg{ width:15px; height:15px; stroke:var(--ink-soft); }
@@ -386,6 +392,49 @@
   .badges{ display:flex; flex-wrap:wrap; gap:8px; }
   .badge{ font-size:0.74rem; font-weight:700; letter-spacing:0.02em; color:var(--accent-strong); background:var(--accent-soft); border-radius:999px; padding:6px 12px; }
   .copyright{ font-size:0.85rem; color:var(--ink-faint); }
+
+  /* ---------- Legal modals ---------- */
+  .modal-overlay{
+    position:fixed; inset:0; z-index:80; padding:5vh 20px;
+    display:flex; align-items:flex-start; justify-content:center;
+    background:rgba(15,23,42,0.55); backdrop-filter:blur(2px);
+    opacity:0; visibility:hidden; transition:opacity .25s ease;
+  }
+  .modal-overlay.open{ opacity:1; visibility:visible; }
+  .modal-box{
+    background:var(--paper-raised); border:1px solid var(--line); border-radius:0;
+    width:100%; max-width:720px; max-height:90vh; display:flex; flex-direction:column;
+    box-shadow:0 24px 60px -20px rgba(15,23,42,0.5);
+    transform:translateY(10px); transition:transform .25s ease;
+  }
+  .modal-overlay.open .modal-box{ transform:translateY(0); }
+  .modal-box-head{
+    display:flex; align-items:flex-start; justify-content:space-between; gap:20px;
+    padding:24px 26px; border-bottom:1px solid var(--line); flex:none;
+  }
+  .modal-box-head h3{ font-size:1.35rem; }
+  .modal-box-close{
+    width:38px; height:38px; border:1.5px solid var(--line); border-radius:0; background:var(--paper);
+    position:relative; cursor:pointer; padding:0; flex:none;
+  }
+  .modal-box-close::before, .modal-box-close::after{
+    content:""; position:absolute; left:50%; top:50%; width:16px; height:1.6px; background:var(--ink);
+  }
+  .modal-box-close::before{ transform:translate(-50%,-50%) rotate(45deg); }
+  .modal-box-close::after{ transform:translate(-50%,-50%) rotate(-45deg); }
+  .modal-box-close:hover{ border-color:var(--accent-strong); }
+  .modal-box-body{ padding:26px; overflow-y:auto; color:var(--ink-soft); font-size:0.96rem; line-height:1.65; }
+  .modal-box-body .meta{ font-size:0.85rem; color:var(--ink-faint); margin-bottom:18px; }
+  .modal-box-body h4{
+    font-family:"Source Serif 4",serif; font-size:1.05rem; font-weight:600; color:var(--ink);
+    margin:26px 0 8px;
+  }
+  .modal-box-body h4:first-of-type{ margin-top:0; }
+  .modal-box-body p{ margin:0 0 12px; }
+  .modal-box-body ul{ margin:0 0 12px; padding-left:20px; }
+  .modal-box-body li{ margin-bottom:4px; }
+  .modal-box-body a{ color:var(--accent-strong); }
+  body.modal-open{ overflow:hidden; }
 </style>
 
 <header>
@@ -709,7 +758,9 @@
       </div>
       <div style="display:flex; flex-direction:column; gap:16px; align-items:flex-end;">
         <div class="foot-legal">
-          <span>AGB</span><span>Impressum</span><span>Datenschutzerklärung</span>
+          <button type="button" class="legal-link" data-open-modal="agb">AGB</button>
+          <button type="button" class="legal-link" data-open-modal="impressum">Impressum</button>
+          <button type="button" class="legal-link" data-open-modal="datenschutz">Datenschutzerklärung</button>
         </div>
         <div class="foot-social" aria-hidden="true">
           <span title="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></span>
@@ -730,6 +781,140 @@
     </div>
   </div>
 </footer>
+
+<div class="modal-overlay" id="modal-agb">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-agb-title">
+    <div class="modal-box-head">
+      <h3 id="modal-agb-title">Allgemeine Geschäftsbedingungen</h3>
+      <button type="button" class="modal-box-close" data-close-modal aria-label="Schließen"></button>
+    </div>
+    <div class="modal-box-body">
+      <p class="meta">Stand: 04/2026</p>
+
+      <h4>§ 1 – Geltungsbereich</h4>
+      <p>Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für alle Verträge zwischen doconnect (Auftragnehmer) und dem Auftraggeber über die Erstellung, Gestaltung und Betreuung von Websites sowie damit verbundene Dienstleistungen.</p>
+      <p>Die AGB gelten ausschließlich gegenüber Unternehmern im Sinne des § 1 UGB. Entgegenstehende oder abweichende Bedingungen des Auftraggebers werden nur dann Vertragsbestandteil, wenn der Auftragnehmer diesen ausdrücklich schriftlich zugestimmt hat.</p>
+
+      <h4>§ 2 – Vertragsgegenstand und Leistungsumfang</h4>
+      <p>Der Auftragnehmer erbringt Leistungen gemäß dem im Angebot oder Leistungsblatt definierten Paket. Maßgeblich ist der zum Zeitpunkt der Auftragserteilung gültige Leistungsumfang.</p>
+      <p>Nicht im vereinbarten Paket enthaltene Leistungen (insbesondere Sonderentwicklungen, zusätzliche Unterseiten, individuelle Funktionen oder umfangreiche inhaltliche Überarbeitungen) werden nach dem aktuellen Stundensatz gemäß Preisliste gesondert verrechnet. Kleinste Abrechnungseinheit ist 0,25 Stunden.</p>
+      <p>Die technische Basis aller Websites ist WordPress. Implementierungsaufwände basieren auf dem bereitgestellten Standard-Template. Abweichungen davon gelten als Änderungsanforderung und werden nach Aufwand verrechnet. Ein Anspruch des Auftraggebers auf die Verwendung bestimmter Drittanbieter-Plugins, Themes oder Hosting-Anbieter besteht nicht, sofern im Angebot nichts anderes vereinbart wurde.</p>
+
+      <h4>§ 3 – Mitwirkungspflichten des Auftraggebers</h4>
+      <p>Der Auftraggeber ist verpflichtet, alle zur Leistungserbringung notwendigen Inhalte, Informationen und Unterlagen vollständig, korrekt und rechtzeitig bereitzustellen. Dazu zählen insbesondere:</p>
+      <ul>
+        <li>Texte, Fotos und sonstiges Bildmaterial</li>
+        <li>Angaben zu Öffnungszeiten, Leistungen, Kontaktdaten und Mitarbeitern</li>
+        <li>Zugangsdaten zu bestehenden Systemen (Domain, Hosting, bestehende Website)</li>
+        <li>Rückmeldungen und Freigaben innerhalb der vereinbarten oder angezeigten Fristen</li>
+      </ul>
+      <p>Verzögert sich die Leistungserbringung durch fehlende oder fehlerhafte Mitwirkung des Auftraggebers, verlängern sich vereinbarte Lieferfristen entsprechend. Der Auftragnehmer ist berechtigt, Wartezeiten ab 14 Kalendertagen nach dem ersten Anfordern von Unterlagen oder Rückmeldungen zum Stundensatz in Rechnung zu stellen.</p>
+      <p>Der Auftraggeber stellt sicher, dass die von ihm bereitgestellten Inhalte frei von Rechten Dritter sind (insbesondere Urheber-, Marken- und Persönlichkeitsrechte) und übernimmt hierfür die volle Haftung.</p>
+
+      <h4>§ 4 – Abnahme und Freigabe</h4>
+      <p>Nach Fertigstellung der Website übermittelt der Auftragnehmer dem Auftraggeber einen Vorschaulink zur Prüfung. Der Auftraggeber hat die Leistung innerhalb von 14 Kalendertagen nach Übermittlung des Vorschaulinks schriftlich (per E-Mail genügt) abzunehmen oder konkrete Mängel zu rügen.</p>
+      <p>Erfolgt innerhalb dieser Frist weder eine Abnahme noch eine begründete Mängelrüge, gilt die Leistung als abgenommen. Der Auftragnehmer hat auf diese Rechtsfolge im Zuge der Übermittlung des Vorschaulinks ausdrücklich hinzuweisen.</p>
+      <p>Geringfügige Mängel, die die Nutzbarkeit der Website nicht wesentlich beeinträchtigen, berechtigen nicht zur Verweigerung der Abnahme. In diesem Fall kann der Auftraggeber die Behebung der Mängel verlangen; die Abnahme gilt gleichwohl als erfolgt.</p>
+      <p>Mit der Abnahme gehen Nutzen und Gefahr auf den Auftraggeber über. Folgeänderungen nach Abnahme gelten als neue Aufträge und werden nach Aufwand verrechnet.</p>
+
+      <h4>§ 5 – Preise, Zahlung und Verzug</h4>
+      <p>Alle Preise verstehen sich in Euro, zuzüglich der gesetzlichen Umsatzsteuer, sofern nicht ausdrücklich anders angegeben.</p>
+      <p><strong>Zahlungskonditionen:</strong> Bei Auftragserteilung ist eine Anzahlung von 50 % des vereinbarten Paketpreises fällig. Die verbleibenden 50 % werden mit Übermittlung des Vorschaulinks zur finalen Abnahme fällig. Abweichende Zahlungsmodalitäten können im Angebot schriftlich vereinbart werden.</p>
+      <p><strong>Fälligkeit und Verzug:</strong> Rechnungen sind innerhalb von 14 Tagen ab Rechnungsdatum ohne Abzug zu begleichen. Bei Zahlungsverzug sind Verzugszinsen in Höhe von 9,2 Prozentpunkten über dem jeweils gültigen Basiszinssatz gemäß § 456 UGB fällig. Die Geltendmachung weiterer Schadenersatzansprüche bleibt vorbehalten.</p>
+      <p><strong>Laufende Dienste:</strong> Laufende Dienste (insbesondere Updateservice und Hosting-Weiterverrechnung) werden monatlich, vierteljährlich oder halbjährlich im Voraus in Rechnung gestellt, entsprechend dem gewählten Intervall. Bei Nichtzahlung ist der Auftragnehmer berechtigt, laufende Dienste nach schriftlicher Mahnung und Ablauf einer Nachfrist von 14 Tagen auszusetzen.</p>
+
+      <h4>§ 6 – Urheberrecht und Nutzungsrechte</h4>
+      <p>Alle vom Auftragnehmer im Rahmen des Auftrags erstellten Werke (Design, Code, Textentwürfe, Grafikelemente) unterliegen dem österreichischen Urheberrecht.</p>
+      <p>Mit vollständiger Bezahlung des vereinbarten Entgelts räumt der Auftragnehmer dem Auftraggeber ein einfaches, zeitlich unbeschränktes Nutzungsrecht an der fertiggestellten Website für den vereinbarten Zweck ein. Eine Übertragung dieses Nutzungsrechts auf Dritte oder eine Sublizenzierung bedürfen der vorherigen schriftlichen Zustimmung des Auftragnehmers.</p>
+      <p>Verwendete Open-Source-Komponenten (WordPress, Plugins, Themes) unterliegen den jeweiligen Lizenzbedingungen der Hersteller, die der Auftraggeber mit der Übernahme des Systems akzeptiert.</p>
+      <p>Der Auftragnehmer ist berechtigt, die Website zu Referenzzwecken in seinem Portfolio zu verwenden und auf der Website einen dezenten Hinweis wie „erstellt von doconnect" zu platzieren, sofern der Auftraggeber dem nicht ausdrücklich widerspricht.</p>
+      <p>Bei vorzeitiger Vertragsauflösung durch den Auftraggeber ohne wichtigen Grund verbleiben sämtliche Nutzungsrechte beim Auftragnehmer, bis das gesamte vereinbarte Entgelt beglichen ist.</p>
+
+      <h4>§ 7 – Gewährleistung</h4>
+      <p>Der Auftragnehmer gewährleistet, dass die erbrachten Leistungen den vereinbarten Spezifikationen entsprechen. Die Gewährleistungsfrist beträgt 12 Monate ab Abnahme.</p>
+      <p>Mängel sind vom Auftraggeber unverzüglich, spätestens jedoch innerhalb von 14 Tagen nach Entdeckung, schriftlich und mit konkreter Beschreibung des Fehlerbildes zu melden. Nicht rechtzeitig gerügte Mängel sind von der Gewährleistung ausgeschlossen.</p>
+      <p>Im Fall eines berechtigten Mangels hat der Auftragnehmer das Recht auf Verbesserung oder Austausch. Erst wenn zwei Verbesserungsversuche innerhalb angemessener Frist scheitern, stehen dem Auftraggeber Preisminderung oder Vertragsauflösung zu.</p>
+      <p>Von der Gewährleistung ausgenommen sind Mängel, die auf unsachgemäßen Eingriffen des Auftraggebers oder Dritter, auf nicht vom Auftragnehmer bereitgestellten Inhalten oder Plugins, oder auf Änderungen an der Hosting- oder Server-Infrastruktur durch den Auftraggeber beruhen.</p>
+
+      <h4>§ 8 – Haftungsbeschränkung</h4>
+      <p>Der Auftragnehmer haftet für Schäden aus der Verletzung von Leben, Körper oder Gesundheit unbeschränkt sowie für vorsätzlich oder grob fahrlässig verursachte Schäden nach den gesetzlichen Bestimmungen.</p>
+      <p>Für leicht fahrlässig verursachte Sachschäden haftet der Auftragnehmer nur bei Verletzung wesentlicher Vertragspflichten (Kardinalspflichten) und nur bis zur Höhe des typischerweise vorhersehbaren Schadens, maximal jedoch bis zur Höhe des im jeweiligen Auftrag vereinbarten Nettohonorars.</p>
+      <p>Eine Haftung für mittelbare Schäden, Datenverluste, entgangenen Gewinn oder Schäden aufgrund von Ausfällen Dritter (Hosting-Anbieter, Domain-Registrar, externe Dienste) ist ausgeschlossen.</p>
+      <p>Der Auftragnehmer übernimmt keine Haftung für die rechtliche Zulässigkeit der vom Auftraggeber bereitgestellten Inhalte (Texte, Bilder, Daten). Der Auftraggeber stellt den Auftragnehmer von entsprechenden Ansprüchen Dritter frei.</p>
+
+      <h4>§ 9 – Laufzeit und Kündigung</h4>
+      <p>Einmalige Leistungen (Pakete) beginnen mit Auftragserteilung und enden mit Abnahme und vollständiger Bezahlung.</p>
+      <p><strong>Laufende Dienste</strong> (Updateservice, Hosting-Weiterverrechnung) werden auf unbestimmte Zeit vereinbart. Sie können vom Auftraggeber jederzeit mit einer Frist von 4 Wochen zum Ende des jeweiligen Abrechnungszeitraums schriftlich gekündigt werden. Für den Auftragnehmer gilt eine Kündigungsfrist von 8 Wochen.</p>
+      <p>Jede Vertragspartei kann den Vertrag über laufende Dienste aus wichtigem Grund fristlos kündigen. Ein wichtiger Grund liegt insbesondere vor bei schwerem Vertragsverstoß, Zahlungsverzug von mehr als 30 Tagen trotz Mahnung, oder Insolvenz einer Vertragspartei.</p>
+      <p>Bei Kündigung laufender Dienste werden bereits bezahlte Leistungen nicht anteilig rückerstattet, sofern die Kündigung durch den Auftraggeber ohne wichtigen Grund erfolgt.</p>
+
+      <h4>§ 10 – Datenschutz und Auftragsverarbeitung</h4>
+      <p>Soweit der Auftragnehmer im Rahmen der Leistungserbringung Zugang zu personenbezogenen Daten des Auftraggebers oder seiner Patient:innen erhält (insbesondere durch Zugang zum WordPress-Backend oder durch die Verarbeitung von Kontaktformulardaten), wird ein gesonderter Auftragsverarbeitungsvertrag (AVV) gemäß Art. 28 DSGVO abgeschlossen.</p>
+      <p>Der Auftraggeber ist als Verantwortlicher im Sinne der DSGVO für die datenschutzkonforme Nutzung der Website verantwortlich. Der Auftragnehmer unterstützt dabei technisch im Rahmen der vereinbarten Leistungen.</p>
+      <p>Der Auftragnehmer verpflichtet sich, Daten des Auftraggebers ausschließlich zur Leistungserfüllung zu verwenden und nicht an Dritte weiterzugeben, soweit keine gesetzliche Verpflichtung oder ausdrückliche Einwilligung vorliegt. Näheres regelt die Datenschutzerklärung unter doconnect.at.</p>
+
+      <h4>§ 11 – Vertraulichkeit</h4>
+      <p>Beide Vertragsparteien verpflichten sich, alle im Rahmen der Zusammenarbeit erlangten vertraulichen Informationen der jeweils anderen Partei vertraulich zu behandeln und nur zur Erfüllung des Vertragszwecks zu verwenden. Diese Pflicht gilt auch nach Beendigung des Vertragsverhältnisses.</p>
+      <p>Als vertraulich gelten insbesondere: Geschäftsdaten, Patientendaten, Zugangsdaten zu Systemen sowie Informationen, die ausdrücklich als vertraulich bezeichnet werden.</p>
+
+      <h4>§ 12 – Änderungen und Ergänzungen</h4>
+      <p>Änderungen und Ergänzungen des Vertrags bedürfen der Schriftform (E-Mail genügt). Mündliche Nebenabreden haben keine Gültigkeit.</p>
+      <p>Der Auftragnehmer ist berechtigt, diese AGB mit einer Ankündigungsfrist von 6 Wochen zu ändern. Widerspricht der Auftraggeber nicht innerhalb von 4 Wochen nach Zugang der Änderungsmitteilung, gelten die geänderten AGB als akzeptiert. Auf diese Rechtsfolge wird der Auftraggeber in der Änderungsmitteilung ausdrücklich hingewiesen.</p>
+
+      <h4>§ 13 – Gerichtsstand und anwendbares Recht</h4>
+      <p>Es gilt ausschließlich österreichisches Recht unter Ausschluss der Verweisungsnormen des internationalen Privatrechts und des UN-Kaufrechts (CISG). Gerichtsstand für alle Streitigkeiten aus oder im Zusammenhang mit diesem Vertrag ist Wien, sofern gesetzlich zulässig.</p>
+
+      <h4>§ 14 – Salvatorische Klausel</h4>
+      <p>Sollte eine Bestimmung dieser AGB ganz oder teilweise unwirksam oder undurchführbar sein oder werden, berührt dies die Wirksamkeit der übrigen Bestimmungen nicht. Die unwirksame Bestimmung ist durch eine wirksame zu ersetzen, die dem wirtschaftlichen Zweck der unwirksamen Bestimmung möglichst nahekommt.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-impressum">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-impressum-title">
+    <div class="modal-box-head">
+      <h3 id="modal-impressum-title">Impressum</h3>
+      <button type="button" class="modal-box-close" data-close-modal aria-label="Schließen"></button>
+    </div>
+    <div class="modal-box-body">
+      <h4>Betreiber</h4>
+      <p>
+        doconnect<br>
+        Stephan Fössl<br>
+        Wimbergergasse 14–16/2/1<br>
+        1070 Wien<br>
+        <a href="mailto:info@doconnect.at">info@doconnect.at</a><br>
+        ATU 60203924
+      </p>
+      <h4>Konzept</h4>
+      <p>Mag. Lisa Kuhn</p>
+      <h4>Technische Umsetzung</h4>
+      <p>Stephan Fössl, <a href="mailto:office@einseitensprung.at">einseitensprung.at</a></p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-datenschutz">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-datenschutz-title">
+    <div class="modal-box-head">
+      <h3 id="modal-datenschutz-title">Datenschutzerklärung</h3>
+      <button type="button" class="modal-box-close" data-close-modal aria-label="Schließen"></button>
+    </div>
+    <div class="modal-box-body">
+      <p>Der Schutz Ihrer persönlichen Daten ist uns ein besonderes Anliegen. Wir verarbeiten Ihre Daten daher ausschließlich auf Grundlage der gesetzlichen Bestimmungen (DSGVO, TKG 2003). In diesen Datenschutzinformationen informieren wir Sie über die wichtigsten Aspekte der Datenverarbeitung im Rahmen unserer Website.</p>
+
+      <h4>Datenverarbeitung</h4>
+      <ul>
+        <li>Persönliche Daten werden nicht abgefragt oder verwendet bzw. nur per E-Mail verarbeitet.</li>
+        <li>Cookies werden derzeit nicht gesetzt – wir sammeln sie nicht.</li>
+      </ul>
+
+      <h4>Ihre Rechte</h4>
+      <p>Ihnen stehen grundsätzlich die Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit, Widerruf und Widerspruch zu.</p>
+      <p>Wenn Sie glauben, dass die Verarbeitung Ihrer Daten gegen das Datenschutzrecht verstößt oder Ihre datenschutzrechtlichen Ansprüche sonst in einer Weise verletzt worden sind, können Sie sich bei der Aufsichtsbehörde beschweren. In Österreich ist dies die Datenschutzbehörde (<a href="https://www.dsb.gv.at" target="_blank" rel="noopener">www.dsb.gv.at</a>).</p>
+    </div>
+  </div>
+</div>
 
 <script>
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -837,5 +1022,47 @@
 
     updateUI(0);
     startAutoplay();
+  })();
+
+  (function(){
+    var openers = document.querySelectorAll('[data-open-modal]');
+    if (!openers.length) return;
+    var lastFocused = null;
+
+    function openModal(overlay){
+      lastFocused = document.activeElement;
+      overlay.classList.add('open');
+      document.body.classList.add('modal-open');
+      var closeBtn = overlay.querySelector('.modal-box-close');
+      if (closeBtn) closeBtn.focus();
+    }
+    function closeModal(overlay){
+      overlay.classList.remove('open');
+      document.body.classList.remove('modal-open');
+      if (lastFocused) lastFocused.focus();
+    }
+    function activeOverlay(){
+      return document.querySelector('.modal-overlay.open');
+    }
+
+    openers.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var overlay = document.getElementById('modal-' + btn.getAttribute('data-open-modal'));
+        if (overlay) openModal(overlay);
+      });
+    });
+    document.querySelectorAll('.modal-overlay').forEach(function(overlay){
+      overlay.addEventListener('click', function(e){
+        if (e.target === overlay) closeModal(overlay);
+      });
+      overlay.querySelectorAll('[data-close-modal]').forEach(function(btn){
+        btn.addEventListener('click', function(){ closeModal(overlay); });
+      });
+    });
+    document.addEventListener('keydown', function(e){
+      if (e.key !== 'Escape') return;
+      var open = activeOverlay();
+      if (open) closeModal(open);
+    });
   })();
 </script>
