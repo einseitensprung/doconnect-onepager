@@ -390,8 +390,14 @@ footer{ background:var(--paper); border-top:1px solid var(--line); padding:52px 
 }
 .legal-link:hover{ color:var(--accent-strong); text-decoration-color:var(--accent-strong); }
 .foot-social{ display:flex; gap:14px; }
-.foot-social span{ width:34px; height:34px; border:1px solid var(--line); border-radius:50%; display:flex; align-items:center; justify-content:center; }
-.foot-social svg{ width:15px; height:15px; stroke:var(--ink-soft); }
+.foot-social a{
+  width:34px; height:34px; border:1px solid var(--line); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  transition:border-color .2s ease;
+}
+.foot-social a:hover{ border-color:var(--accent-strong); }
+.foot-social svg{ width:15px; height:15px; stroke:var(--ink-soft); transition:stroke .2s ease; }
+.foot-social a:hover svg{ stroke:var(--accent-strong); }
 .foot-bottom{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; padding-top:26px; }
 .badges{ display:flex; flex-wrap:wrap; gap:8px; }
 .badge{ font-size:0.74rem; font-weight:700; letter-spacing:0.02em; color:var(--accent-strong); background:var(--accent-soft); border-radius:999px; padding:6px 12px; }
