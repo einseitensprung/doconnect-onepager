@@ -752,12 +752,15 @@
   (function(){
     var track = document.getElementById('carousel-track');
     if (!track) return;
+    var carouselEl = track.closest('.carousel');
     var slides = Array.prototype.slice.call(track.querySelectorAll('.quote-card'));
     var prevBtn = document.querySelector('.carousel-arrow.prev');
     var nextBtn = document.querySelector('.carousel-arrow.next');
     var dots = Array.prototype.slice.call(document.querySelectorAll('.carousel-dot'));
     var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var current = 0;
+    var autoplayId = null;
+    var AUTOPLAY_MS = 6000;
 
     function updateUI(index){
       current = index;
@@ -765,18 +768,40 @@
         d.classList.toggle('active', i === index);
         d.setAttribute('aria-selected', i === index ? 'true' : 'false');
       });
-      prevBtn.disabled = index === 0;
-      nextBtn.disabled = index === slides.length - 1;
     }
 
     function goTo(index){
-      index = Math.max(0, Math.min(slides.length - 1, index));
+      index = (index + slides.length) % slides.length;
       slides[index].scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', inline: 'center', block: 'nearest' });
     }
+    function next(){ goTo(current + 1); }
+    function prev(){ goTo(current - 1); }
 
-    prevBtn.addEventListener('click', function(){ goTo(current - 1); });
-    nextBtn.addEventListener('click', function(){ goTo(current + 1); });
-    dots.forEach(function(dot, i){ dot.addEventListener('click', function(){ goTo(i); }); });
+    function stopAutoplay(){
+      if (autoplayId){ window.clearInterval(autoplayId); autoplayId = null; }
+    }
+    function startAutoplay(){
+      if (reduced || document.hidden) return;
+      stopAutoplay();
+      autoplayId = window.setInterval(next, AUTOPLAY_MS);
+    }
+    function restartAutoplay(){ startAutoplay(); }
+
+    prevBtn.addEventListener('click', function(){ prev(); restartAutoplay(); });
+    nextBtn.addEventListener('click', function(){ next(); restartAutoplay(); });
+    dots.forEach(function(dot, i){ dot.addEventListener('click', function(){ goTo(i); restartAutoplay(); }); });
+
+    carouselEl.addEventListener('mouseenter', stopAutoplay);
+    carouselEl.addEventListener('mouseleave', startAutoplay);
+    carouselEl.addEventListener('focusin', stopAutoplay);
+    carouselEl.addEventListener('focusout', function(){
+      if (!carouselEl.contains(document.activeElement)) startAutoplay();
+    });
+    track.addEventListener('touchstart', stopAutoplay, { passive:true });
+    track.addEventListener('touchend', function(){ window.setTimeout(startAutoplay, 1200); }, { passive:true });
+    document.addEventListener('visibilitychange', function(){
+      if (document.hidden) stopAutoplay(); else startAutoplay();
+    });
 
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
@@ -789,5 +814,6 @@
     slides.forEach(function(s){ io.observe(s); });
 
     updateUI(0);
+    startAutoplay();
   })();
 </script>
