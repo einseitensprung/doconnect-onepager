@@ -772,7 +772,9 @@
 
     function goTo(index){
       index = (index + slides.length) % slides.length;
-      slides[index].scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', inline: 'center', block: 'nearest' });
+      var target = slides[index];
+      var left = target.getBoundingClientRect().left - track.getBoundingClientRect().left + track.scrollLeft;
+      track.scrollTo({ left: left, behavior: reduced ? 'auto' : 'smooth' });
     }
     function next(){ goTo(current + 1); }
     function prev(){ goTo(current - 1); }
