@@ -418,14 +418,14 @@ footer{ background:var(--paper); border-top:1px solid var(--line); padding:52px 
   padding:5px 10px; box-shadow:var(--shadow); z-index:5;
 }
 .foot-social a[data-tooltip]::before{
-  content:""; bottom:calc(100% + 6px); width:8px; height:8px;
-  background:var(--accent-strong); transform:translate(-50%,4px) rotate(45deg);
+  content:""; bottom:calc(100% + 4px); width:0; height:0;
+  border-left:5px solid transparent; border-right:5px solid transparent;
+  border-top:5px solid var(--accent-strong);
 }
 .foot-social a[data-tooltip]:hover::after, .foot-social a[data-tooltip]:hover::before,
 .foot-social a[data-tooltip]:focus-visible::after, .foot-social a[data-tooltip]:focus-visible::before{
   opacity:1; transform:translate(-50%,0);
 }
-.foot-social a[data-tooltip]:focus-visible::before{ transform:translate(-50%,0) rotate(45deg); }
 
 .theme-toggle{
   position:relative; width:34px; height:34px; border:1px solid var(--line); border-radius:50%;
