@@ -389,6 +389,8 @@ footer{ background:var(--paper); border-top:1px solid var(--line); padding:52px 
   text-decoration-color:transparent; transition:color .2s ease, text-decoration-color .2s ease;
 }
 .legal-link:hover{ color:var(--accent-strong); text-decoration-color:var(--accent-strong); }
+.foot-actions{ display:flex; align-items:center; gap:14px; }
+.foot-actions-divider{ width:1px; height:22px; background:var(--line); display:inline-block; }
 .foot-social{ display:flex; gap:14px; }
 .foot-social a{
   width:34px; height:34px; border:1px solid var(--line); border-radius:50%;
