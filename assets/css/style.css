@@ -253,8 +253,8 @@ body.menu-open{ overflow:hidden; }
 }
 .statement:last-of-type{ border-bottom:none; }
 .statement .no{ font-family:"Atkinson Hyperlegible",sans-serif; font-size:0.85rem; font-weight:700; color:var(--ink-faint); flex:none; width:1.6em; }
-.anspruch-goal{ margin-top:30px; font-size:1.06rem; color:var(--ink-soft); max-width:62ch; }
-.anspruch-goal strong{ color:var(--ink); }
+.anspruch-goal{ margin-top:30px; font-size:1.06rem; color:var(--ink); max-width:62ch; }
+.anspruch-goal strong{ color:var(--accent-strong); }
 
 /* ---------- Pakete ---------- */
 .price-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; align-items:stretch; }
