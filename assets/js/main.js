@@ -52,7 +52,7 @@ document.addEventListener('keydown', function(e){
     current = index;
     dots.forEach(function(d,i){
       d.classList.toggle('active', i === index);
-      d.setAttribute('aria-selected', i === index ? 'true' : 'false');
+      d.setAttribute('aria-current', i === index ? 'true' : 'false');
     });
   }
 
