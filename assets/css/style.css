@@ -396,6 +396,7 @@ footer{ background:var(--paper); border-top:1px solid var(--line); padding:52px 
 .foot-actions-divider{ width:1px; height:22px; background:var(--line); display:inline-block; }
 .foot-social{ display:flex; gap:14px; }
 .foot-social a{
+  position:relative;
   width:34px; height:34px; border:1px solid var(--line); border-radius:50%;
   display:flex; align-items:center; justify-content:center;
   transition:border-color .2s ease;
@@ -403,6 +404,28 @@ footer{ background:var(--paper); border-top:1px solid var(--line); padding:52px 
 .foot-social a:hover{ border-color:var(--accent-strong); }
 .foot-social svg{ width:15px; height:15px; stroke:var(--ink-soft); transition:stroke .2s ease; }
 .foot-social a:hover svg{ stroke:var(--accent-strong); }
+
+.foot-social a[data-tooltip]::after,
+.foot-social a[data-tooltip]::before{
+  position:absolute; left:50%; bottom:calc(100% + 10px); transform:translate(-50%,4px);
+  opacity:0; pointer-events:none; transition:opacity .18s ease, transform .18s ease;
+}
+.foot-social a[data-tooltip]::after{
+  content:attr(data-tooltip);
+  background:var(--accent-strong); color:var(--paper);
+  font-family:"Atkinson Hyperlegible", sans-serif; font-size:0.72rem; font-weight:700;
+  letter-spacing:0.03em; white-space:nowrap;
+  padding:5px 10px; box-shadow:var(--shadow); z-index:5;
+}
+.foot-social a[data-tooltip]::before{
+  content:""; bottom:calc(100% + 6px); width:8px; height:8px;
+  background:var(--accent-strong); transform:translate(-50%,4px) rotate(45deg);
+}
+.foot-social a[data-tooltip]:hover::after, .foot-social a[data-tooltip]:hover::before,
+.foot-social a[data-tooltip]:focus-visible::after, .foot-social a[data-tooltip]:focus-visible::before{
+  opacity:1; transform:translate(-50%,0);
+}
+.foot-social a[data-tooltip]:focus-visible::before{ transform:translate(-50%,0) rotate(45deg); }
 
 .theme-toggle{
   position:relative; width:34px; height:34px; border:1px solid var(--line); border-radius:50%;
