@@ -146,3 +146,24 @@ document.addEventListener('keydown', function(e){
     if (open) closeModal(open);
   });
 })();
+
+(function(){
+  var btn = document.querySelector('.theme-toggle');
+  if (!btn) return;
+
+  function effectiveTheme(){
+    var explicit = document.documentElement.getAttribute('data-theme');
+    if (explicit === 'light' || explicit === 'dark') return explicit;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function applyTheme(theme){
+    document.documentElement.setAttribute('data-theme', theme);
+    try { localStorage.setItem('theme', theme); } catch(e){}
+    btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+  }
+
+  btn.setAttribute('aria-pressed', effectiveTheme() === 'dark' ? 'true' : 'false');
+  btn.addEventListener('click', function(){
+    applyTheme(effectiveTheme() === 'dark' ? 'light' : 'dark');
+  });
+})();
