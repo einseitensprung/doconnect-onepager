@@ -248,6 +248,9 @@ body.menu-open{ overflow:hidden; }
 
 /* ---------- Anspruch ---------- */
 .anspruch{ background:var(--paper); }
+.anspruch-title{ color:var(--accent-strong); }
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .anspruch-title{ color:var(--ink); } }
+:root[data-theme="dark"] .anspruch-title{ color:var(--ink); }
 .statement-list{ display:flex; flex-direction:column; gap:0; }
 .statement{
   font-family:"Source Serif 4", serif; font-weight:520; font-size:clamp(1.25rem,2.6vw,1.65rem);
