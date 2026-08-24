@@ -236,19 +236,17 @@ body.menu-open{ overflow:hidden; }
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
-  background-attachment:fixed;
   position:relative;
+  overflow:hidden;
+  will-change:background-position;
 }
 .parallax-divider::after{
   content:"";
   position:absolute; inset:0;
-  background:linear-gradient(180deg, rgba(14,27,51,.35) 0%, rgba(14,27,51,.62) 100%);
+  background:linear-gradient(180deg, rgba(14,27,51,.2) 0%, rgba(14,27,51,.4) 100%);
 }
 @media (max-width:880px){
-  .parallax-divider{ height:26vh; min-height:160px; background-attachment:scroll; }
-}
-@media (prefers-reduced-motion: reduce){
-  .parallax-divider{ background-attachment:scroll; }
+  .parallax-divider{ height:26vh; min-height:160px; }
 }
 
 /* ---------- Leistungen ---------- */
