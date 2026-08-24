@@ -230,6 +230,27 @@ body.menu-open{ overflow:hidden; }
 .section-head{ max-width:60ch; margin-bottom:48px; }
 .section-head h2{ font-size:clamp(1.7rem, 3vw, 2.35rem); }
 
+/* ---------- Parallax divider ---------- */
+.parallax-divider{
+  height:100vh;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+  position:relative;
+}
+.parallax-divider::after{
+  content:"";
+  position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(14,27,51,.35) 0%, rgba(14,27,51,.62) 100%);
+}
+@media (max-width:880px){
+  .parallax-divider{ height:52vh; min-height:320px; background-attachment:scroll; }
+}
+@media (prefers-reduced-motion: reduce){
+  .parallax-divider{ background-attachment:scroll; }
+}
+
 /* ---------- Leistungen ---------- */
 .card-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:22px; }
 @media (max-width:720px){ .card-grid{ grid-template-columns:1fr; } }
