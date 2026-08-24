@@ -236,14 +236,24 @@ body.menu-open{ overflow:hidden; }
   position:relative;
   overflow:hidden;
 }
+.parallax-divider-zoom{
+  position:absolute; inset:0;
+  overflow:hidden;
+  transform:scale(var(--divider-scale, 1));
+  transform-origin:center;
+  will-change:transform;
+}
+.parallax-divider-track{
+  position:absolute; left:0; right:0; top:0;
+  height:calc(100vh + 100%);
+  transform:translateY(var(--divider-offset, 0px));
+  will-change:transform;
+}
 .parallax-divider-img{
   position:absolute; inset:0;
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
-  transform:scale(var(--divider-scale, 1));
-  transform-origin:center;
-  will-change:transform;
 }
 .parallax-divider::after{
   content:"";

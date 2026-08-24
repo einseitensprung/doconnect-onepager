@@ -18,6 +18,7 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         var progress = (vh - rect.top) / (vh + rect.height);
         progress = Math.min(1, Math.max(0, progress));
         el.style.setProperty('--divider-scale', (1 + progress * 0.25).toFixed(3));
+        el.style.setProperty('--divider-offset', (-rect.top) + 'px');
       });
       tickingZoom = false;
     };
