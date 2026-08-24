@@ -233,11 +233,19 @@ body.menu-open{ overflow:hidden; }
 /* ---------- Parallax divider ---------- */
 .parallax-divider{
   height:50vh;
+  position:relative;
+  overflow:hidden;
+}
+.parallax-divider::before{
+  content:"";
+  position:absolute; inset:0;
+  background-image:var(--divider-img);
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
-  background-attachment:fixed;
-  position:relative;
+  transform:scale(var(--divider-scale, 1));
+  transform-origin:center;
+  will-change:transform;
 }
 .parallax-divider::after{
   content:"";
@@ -245,10 +253,7 @@ body.menu-open{ overflow:hidden; }
   background:linear-gradient(180deg, rgba(14,27,51,.03) 0%, rgba(14,27,51,.08) 100%);
 }
 @media (max-width:880px){
-  .parallax-divider{ height:26vh; min-height:160px; background-attachment:scroll; }
-}
-@media (prefers-reduced-motion: reduce){
-  .parallax-divider{ background-attachment:scroll; }
+  .parallax-divider{ height:26vh; min-height:160px; }
 }
 
 /* ---------- Leistungen ---------- */
