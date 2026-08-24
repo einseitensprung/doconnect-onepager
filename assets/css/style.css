@@ -2,6 +2,7 @@
   --paper:#FFFFFF;
   --paper-raised:#FFFFFF;
   --paper-gradient: linear-gradient(180deg, #FFFFFF 0%, #E9EDF4 100%);
+  --header-gradient: linear-gradient(135deg, color-mix(in srgb, var(--paper) 90%, transparent) 0%, color-mix(in srgb, var(--accent-soft) 65%, transparent) 100%);
   --band:#F1F7FB;
   --ink:#1B3473;
   --ink-soft:#3D495F;
@@ -20,6 +21,7 @@
     --paper:#0E1B33;
     --paper-raised:#132443;
     --paper-gradient: var(--paper);
+    --header-gradient: color-mix(in srgb, var(--paper) 88%, transparent);
     --band:#0B1728;
     --ink:#EDF1FA;
     --ink-soft:#AEBBDA;
@@ -37,6 +39,7 @@
   --paper:#0E1B33;
   --paper-raised:#132443;
   --paper-gradient: var(--paper);
+  --header-gradient: color-mix(in srgb, var(--paper) 88%, transparent);
   --band:#0B1728;
   --ink:#EDF1FA;
   --ink-soft:#AEBBDA;
@@ -94,7 +97,7 @@ section{ position:relative; }
 /* ---------- Header ---------- */
 header{
   position:sticky; top:0; z-index:40;
-  background:color-mix(in srgb, var(--paper) 88%, transparent);
+  background:var(--header-gradient);
   backdrop-filter:blur(10px);
   border-bottom:1px solid var(--line);
 }
