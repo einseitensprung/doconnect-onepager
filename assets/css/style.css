@@ -1,6 +1,7 @@
 :root{
   --paper:#FFFFFF;
   --paper-raised:#FFFFFF;
+  --paper-gradient: linear-gradient(180deg, #FFFFFF 0%, #E9EDF4 100%);
   --band:#F1F7FB;
   --ink:#1B3473;
   --ink-soft:#3D495F;
@@ -18,6 +19,7 @@
   :root:not([data-theme="light"]){
     --paper:#0E1B33;
     --paper-raised:#132443;
+    --paper-gradient: var(--paper);
     --band:#0B1728;
     --ink:#EDF1FA;
     --ink-soft:#AEBBDA;
@@ -34,6 +36,7 @@
 :root[data-theme="dark"]{
   --paper:#0E1B33;
   --paper-raised:#132443;
+  --paper-gradient: var(--paper);
   --band:#0B1728;
   --ink:#EDF1FA;
   --ink-soft:#AEBBDA;
@@ -63,7 +66,7 @@ html{scroll-behavior:smooth; scrollbar-width:thin; scrollbar-color:var(--ink-fai
 }
 body{
   margin:0;
-  background:var(--paper);
+  background:var(--paper-gradient);
   color:var(--ink);
   font-family:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
   font-size:17px;
