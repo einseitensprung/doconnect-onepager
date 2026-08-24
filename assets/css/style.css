@@ -105,6 +105,13 @@ header{
 .logo{ display:inline-flex; align-items:center; text-decoration:none; }
 .logo img{ height:30px; width:auto; display:block; }
 footer .logo img{ height:26px; }
+@keyframes logo-pulse{
+  0%, 100%{ transform:scale(1); }
+  50%{ transform:scale(1.06); }
+}
+header .logo:hover img, footer .logo:hover img{
+  animation:logo-pulse 1.6s ease-in-out infinite;
+}
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .logo img{ filter:brightness(0) invert(1); } }
 :root[data-theme="dark"] .logo img{ filter:brightness(0) invert(1); }
 nav.primary-nav{ display:flex; gap:30px; }
