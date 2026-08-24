@@ -232,7 +232,7 @@ body.menu-open{ overflow:hidden; }
 
 /* ---------- Parallax divider ---------- */
 .parallax-divider{
-  height:100vh;
+  height:50vh;
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
@@ -245,7 +245,7 @@ body.menu-open{ overflow:hidden; }
   background:linear-gradient(180deg, rgba(14,27,51,.35) 0%, rgba(14,27,51,.62) 100%);
 }
 @media (max-width:880px){
-  .parallax-divider{ height:52vh; min-height:320px; background-attachment:scroll; }
+  .parallax-divider{ height:26vh; min-height:160px; background-attachment:scroll; }
 }
 @media (prefers-reduced-motion: reduce){
   .parallax-divider{ background-attachment:scroll; }
