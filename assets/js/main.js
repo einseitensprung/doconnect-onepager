@@ -17,7 +17,7 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         var rect = el.getBoundingClientRect();
         var progress = (vh - rect.top) / (vh + rect.height);
         progress = Math.min(1, Math.max(0, progress));
-        el.style.backgroundPositionY = (37.5 + progress * 25) + '%';
+        el.style.backgroundPositionY = (44 + progress * 12) + '%';
       });
       tickingParallax = false;
     };
