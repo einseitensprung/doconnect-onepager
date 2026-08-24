@@ -545,4 +545,7 @@ footer{ background:var(--paper); border-top:1px solid var(--line); padding:52px 
 .modal-box-body ul{ margin:0 0 12px; padding-left:20px; }
 .modal-box-body li{ margin-bottom:4px; }
 .modal-box-body a{ color:var(--accent-strong); }
+.modal-box-body a:hover{ color:var(--clay); }
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .modal-box-body a:hover{ color:var(--accent-strong); } }
+:root[data-theme="dark"] .modal-box-body a:hover{ color:var(--accent-strong); }
 body.modal-open{ overflow:hidden; }
